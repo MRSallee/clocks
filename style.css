@@ -9,6 +9,8 @@ html, body {
     
     font-family: 'Roboto Mono', monospace;
     font-size: 1vw;
+    
+    user-select: none;
 }
 
 main.timeports-container {
@@ -21,6 +23,9 @@ main.timeports-container {
     height: 100%;
 }
 
+/*****
+Timeport *****/
+
 section.timeport {
     display: flex;
     flex-direction: column;
@@ -28,13 +33,18 @@ section.timeport {
     align-items: center;
     
     flex: auto 1 1;
+    
+    cursor: pointer;
 }
 
 div.time {
+    position: relative;
+    
     display: flex;
     justify-content: center;
     align-items: center;
     
+    width: 100%;
     flex: auto 1 1;
     
     color: #fff;
@@ -43,20 +53,79 @@ div.time {
     line-height: 1em;
 }
 
+div.time.tooltip:after {
+    position: absolute;
+    bottom: -4em;
+    z-index: 1;
+    
+    content: 'Click to toggle military time';
+    
+    display: block;
+    padding: 1em;
+    
+    background-color: #666;
+    border-radius: 0.3em;
+    
+    color: #000;
+    font-size: 2rem;
+    line-height: 1em;
+    text-align: center;
+    text-transform: uppercase;
+    
+    white-space: nowrap;
+    
+    animation: tooltip ease-out 5s 1 forwards;
+}
+
+@keyframes tooltip {
+    0% {
+        transform: translateY(-2rem);
+        opacity: 0.0;
+    }
+    5% {
+        transform: translateY(0);
+        opacity: 1.0;
+    }
+    95% {
+        transform: translateY(0);
+        opacity: 1.0;
+    }
+    100% {
+        transform: translateY(2rem);
+        opacity: 0.0;
+    }
+}
+
 div.time span {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     
     flex: 20rem 0 0;
 }
 
+div.time span.hours {
+    cursor: pointer;
+}
+
 span.seconds {
+    font-size: 6rem;
+    line-height: 1em;
+    
     opacity: 0.2;
 }
 
+span.seconds:after {
+    content: 'AM';
+}
+
+section.timeport[meridiem="pm"] span.seconds:after {
+    content: 'PM';
+}
+
 div.time span.colon {
-    flex: 10rem 0 0;
+    flex: 9rem 0 0;
     opacity: 0.2;
     font-weight: 200;
     font-size: 
@@ -67,9 +136,13 @@ h1.timezone {
     
     color: #fff;
     font-weight: 200;
-    font-size: 3rem;
+    font-size: 2rem;
     
     opacity: 0.2;
+}
+
+h1.timezone:before {
+    content: 'Timezone: ';
 }
 
 
