@@ -96,8 +96,8 @@ setInterval(function() {
 }, 1000);
 
 
-// Display tooltip
 
+// Display tooltip
 function tooltipMilitary() {
     let shownTooltip = localStorage.getItem('tooltip-military'),
         elemTime = document.querySelector('div.time');
@@ -113,3 +113,26 @@ function tooltipMilitary() {
 setTimeout(function() {
     tooltipMilitary();
 }, 3000);
+
+
+
+// Full screen mode
+function fullscreenToggle() {
+    let timeportsContainer = document.querySelector('main.timeports-container');
+
+    timeportsContainer.setAttribute('fullscreen', 'false');
+    
+    timeportsContainer.addEventListener('dblclick', function() {
+        let fullscreenState = timeportsContainer.getAttribute('fullscreen');
+        
+        if (fullscreenState === 'false') {
+            timeportsContainer.requestFullscreen();
+            timeportsContainer.setAttribute('fullscreen', 'true');
+        } else {
+            document.exitFullscreen();
+            timeportsContainer.setAttribute('fullscreen', 'false');
+        }
+        
+    });
+}
+fullscreenToggle();
